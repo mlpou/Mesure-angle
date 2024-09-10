@@ -226,3 +226,10 @@ class IPANO:
     def battery(self):
         res = self._communicate("GPW")
         return int(res)
+
+ipano = IPANO()
+ipano.set_zero_position(self)
+for i in range(20) :
+    for j in range(20) :
+        ipano.goto(self, i, j*18)
+        ipano.set_timing(self, TIME_INTERVAL, 5)
