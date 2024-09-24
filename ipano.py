@@ -227,7 +227,7 @@ class IPANO:
         res = self._communicate("GPW")
         return int(res)
 
-ipano = IPANO()
+ipano = IPANO('/dev/ttyUSB0')
 ipano.set_zero_position(self)
 for i in range(20) :
     for j in range(20) :
