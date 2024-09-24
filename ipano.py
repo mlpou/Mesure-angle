@@ -2,6 +2,12 @@ from enum import Enum
 
 import serial
 
+import time
+
+import serial.tools.list_ports;
+print([comport.device for comport in serial.tools.list_ports.comports()])
+
+
 
 class DIRECTION(Enum):
     LEFT = "l"
@@ -227,9 +233,11 @@ class IPANO:
         res = self._communicate("GPW")
         return int(res)
 
+print(list(serial.tools.list_ports.comports()))
 ipano = IPANO('/dev/ttyUSB0')
-ipano.set_zero_position(self)
+ipano.set_zero_position()
+
 for i in range(20) :
     for j in range(20) :
-        ipano.goto(self, i, j*18)
-        ipano.set_timing(self, TIME_INTERVAL, 5)
+        time.sleep(5)
+        ipano.goto(i, j*18)
