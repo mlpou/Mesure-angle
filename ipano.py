@@ -248,6 +248,6 @@ def measures(altPrecision, azPrecision, pauseTime) :
     for i in range(altPrecision) :
         for j in range(azPrecision) :
             time.sleep(pauseTime)
-            ipano.goto((i-altPrecision)*2, j*(360/azPrecision))
+            ipano.goto((i-altPrecision/2)*2, j*(360/azPrecision))
 
 measures(20, 20, 2)

@@ -1,1 +1,5 @@
 
+def numberToAngle (number,altPrecision, azPrecision) : 
+    angle = ((number//azPrecision)-altPrecision/2)*2
+    return angle
+
