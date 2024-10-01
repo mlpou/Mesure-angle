@@ -8,7 +8,9 @@ import serial.tools.list_ports;
 print([comport.device for comport in serial.tools.list_ports.comports()])
 
 
-
+""" This code provides functions for communication with Ipano allview camera mount. They the commands from the iPano RS232 Command Set into python functions.
+The last function (measures) uses the previous functions to control the camera mount movements in the goal of mesuring different pixels values of a LED
+shot from different angles. """
 class DIRECTION(Enum):
     LEFT = "l"
     RIGHT = "r"
@@ -154,6 +156,7 @@ class IPANO:
             raise BadParameter("Axis must be None, 'alt' or 'az'.", axis)
 
     def goto(self, alt, az):
+        """ This function directs the camera mount in the indicated direction, with the zero position as a reference. """
         if alt < -180 or alt > 180:
             raise BadParameter("Altitude must be in [-180, 180] range.", alt)
         if az < 0 or az > 360:
@@ -168,8 +171,9 @@ class IPANO:
 
     def goto_zero_position(self):
         self._communicate("SPZ", "0")
-
+        
     def set_zero_position(self):
+        """ This function sets the current position as the zero position """
         self._communicate("SPZ", "1")
 
     def set_reference_point(self, id):
