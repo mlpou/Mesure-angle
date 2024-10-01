@@ -241,7 +241,6 @@ class IPANO:
 ipano = IPANO('/dev/ttyUSB0')
 ipano.set_zero_position()
 
-
 def measures(altIterations, altPrecision,  azIterations, pauseTime) :
     ipano.goto((0-altIterations)*2, 0*(360/azIterations))
     time.sleep(7)
