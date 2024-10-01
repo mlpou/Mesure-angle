@@ -233,11 +233,17 @@ class IPANO:
         res = self._communicate("GPW")
         return int(res)
 
-print(list(serial.tools.list_ports.comports()))
+
 ipano = IPANO('/dev/ttyUSB0')
 ipano.set_zero_position()
 
-for i in range(20) :
-    for j in range(20) :
-        time.sleep(2)
-        ipano.goto(i*5, j*18)
+
+def measures(altPrecision, azPrecision, pauseTime) :
+    ipano.goto((0-altPrecision)*2, 0*(360/azPrecision))
+    time.sleep(7)
+    for i in range(altPrecision) :
+        for j in range(azPrecision) :
+            time.sleep(pauseTime)
+            ipano.goto((i-altPrecision)*2, j*(360/azPrecision))
+
+measures(20, 20, 2)
