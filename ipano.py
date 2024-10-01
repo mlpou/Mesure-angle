@@ -237,7 +237,12 @@ print(list(serial.tools.list_ports.comports()))
 ipano = IPANO('/dev/ttyUSB0')
 ipano.set_zero_position()
 
-for i in range(20) :
-    for j in range(20) :
-        time.sleep(5)
-        ipano.goto(i, j*18)
+def measures (altPrecision, azPrecision, pauseTime) : 
+    """La procédure contrôle les mouvements pour une prise de mesure d'angles"""
+    for i in range(altPrecision) :
+        for j in range(azPrecision) :
+            time.sleep(pauseTime)
+         ipano.goto(i*360/(altPrecision)-180, j*360/(azPrecision))
+
+
+measures(40, 20, 5)
