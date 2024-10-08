@@ -1,38 +1,27 @@
-exec zsh
-ls 
-cd Documents
-ls
-python3
 import astropy
 import numpy as np
 import matplotlib.pyplot as plt
-image=plt.imread('image_projet.jpg')
-plt.imshow(image)
-plt.show()
-#faire control c pour revenir à python
-R=image[:,:,0]
-G=image[:,:,1]
-B=image[:,:,2]
-image2=R/3+B/3+G/3
-np.max(image2)
-np.argmax(image)
-plt.imshow(image2)
-plt.show()
-#faire control c pour revenir à python
 import astropy.convolution as apconv
+image=plt.imread('image_projet.jpg')
+image
 def convolve(imag, window):
     return apconv.convolve(imag, apconv.Box2DKernel(width=window))
-image3=convolve(image2,3)
-plt.imshow(image3)
-plt.show()
-#faire control c pour revenir à python
-np.max(image3)
-np.argmax(image3)
-len(image3[:,1])
-len(image3[1,:])
-i=np.argmax(image3)
-j=len(image2[:,1])
-k=len(image3[1,:])
-y=i//k
-x=i%k
-[x,y]
+def coordonnées(images):
+    R=image[:,:,0]
+    G=image[:,:,1]
+    B=image[:,:,2]
+    image2=R/3+B/3+G/3
+    np.max(image2)
+    np.argmax(image)
+    image3=convolve(image2,3)
+    np.max(image3)
+    np.argmax(image3)
+    len(image3[:,1])
+    len(image3[1,:])
+    i=np.argmax(image3)
+    j=len(image2[:,1])
+    k=len(image3[1,:])
+    y=i//k
+    x=i%k
+    return [x,y]
+print(coordonnées(image))
