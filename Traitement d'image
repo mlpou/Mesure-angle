@@ -7,7 +7,6 @@ import astropy
 import numpy as np
 import matplotlib.pyplot as plt
 image=plt.imread('image_projet.jpg')
-image
 plt.imshow(image)
 plt.show()
 #faire control c pour revenir à python
