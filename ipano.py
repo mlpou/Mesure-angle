@@ -158,7 +158,7 @@ class IPANO:
     def goto(self, alt, az):
         """ This function directs the camera mount in the indicated direction, with the zero position as a reference. """
         if alt < -180 or alt > 180:
-            raise BadParameter("Altitude must be in [-180, 180] range.", alt)
+            raise BadParameter("latitude must be in [-180, 180] range.", alt)
         if az < 0 or az > 360:
             raise BadParameter("Azimuth must be in the [0, 360] range.", az)
 

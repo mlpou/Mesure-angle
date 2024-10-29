@@ -61,7 +61,7 @@ def polyRelation2 (tempPosX, tempPosY, tempAngles) :
     model = LinearRegression().fit(pos, angles)
     return model.coef_
 
-print(polyRelation2([1, 2, 3], [1, 2, 3], [2, 8, 18]))
+print(polyRelation2([1, 2, 3], [1, 2, 3], [3, 10, 21]))
 
 
 
