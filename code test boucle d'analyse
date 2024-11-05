@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt # type: ignore
 import astropy # type: ignore
 import astropy.convolution as apconv # type: ignore
 
-path = "C:\\Users\\mathi\\Rose\\Mesure-angle\\dossier_test_image\\"
+path = "\\dossier_test_image"
 
 L=[]
 def convolve(imag, window):
@@ -29,9 +29,9 @@ def coordonnées(images):
   return [x,y]
 
 i = 0
+#open(path)
 for entry in os.listdir(path):
 	print(entry)
-	print('yay')
 	imageTmp=entry
 	image=plt.imread(entry)
 	ListeTemp=coordonnées(image)+[i]
