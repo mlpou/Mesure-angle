@@ -3,45 +3,41 @@ from sklearn.linear_model import LinearRegression # type: ignore
 from sklearn.preprocessing import PolynomialFeatures # type: ignore
 #
 
+alt = 1
+precision = 1
+az = 2
+
+
 def numberToAngle (number,altIterations, altPrecision, azIterations) : 
     # On retourne l'angle selon le nombre dans l'itération
     angle = ((number//azIterations)-altIterations/2)*altPrecision
     return angle
 
+def listConversionx (L) : 
+    posx = []
+    for l in L :
+        num = l[0]
+        posx.append(num.item())
+    return posx
 
-def centerRelation(Angles, posY, posX) :
-    Distances = np.array([[]])
-    for i in range(len(Angles))  :
-        dist = (posY[i]**2 + posX[i]**2)**(1/2)
-        Distances.append(dist)
-    Distances = np.array(Distances).reshape((-1,1))
-    Angles = np.array(Angles)
-    model = LinearRegression().fit(Distances, Angles)
-    Values = [model.intercept_, model.coef_]
-    return Values
-#print(centerRelation([5, 10, 15], [(1/2)**(1/2), 1, (3/2)**(1/2)], [(1/2)**(1/2), 1, (3/2)**(1/2)]))
+def listConversiony (L) : 
+    posy = []
+    for l in L :
+        num = l[1]
+        posy.append(num.item())
+    return posy
 
-def Relation2 (posX, posY, Angles) :
-    pos = np.zeros(shape = ((len(posX)), 2))
-    for i in range (len(posX)) : 
-        tempList = [posX[i], posY[i]]
-        pos [i] = tempList
-    angles = np.array(Angles)
-    model = LinearRegression().fit(pos, angles)
-    return model.coef_
+def listConversionAngle (L) : 
+    posa = []
+    for l in L :
+        posa.append(numberToAngle(l[2], alt, precision, az))
+    return posa
 
-# print(Relation2([1, 2, 3], [1, 2, 3], [2, 4, 6]))
 
-def polyRelation (posX, Angles) :
-    pos = np.array(posX).reshape((-1, 1))
-    angles = np.array(Angles)
-    _pos = PolynomialFeatures(degree = 2, include_bias=False).fit_transform(pos)
-    model = LinearRegression().fit(_pos, angles)
-    return model.coef_
 
 # print(polyRelation([1, 2, 3], [1, 4, 9]))
 
-def polyRelation2 (tempPosX, tempPosY, tempAngles) :
+def polyRelation2 (L) :
     """"Cette procédure retourne les coefficient pour la relation polynomiale entre les positions de x et y et l'angle du pixel.
     Indices et coefficients correspondants :
     0 -> Ordonnée à l'origine
@@ -49,8 +45,11 @@ def polyRelation2 (tempPosX, tempPosY, tempAngles) :
     2 -> Coefficient de x**2
     3 -> Coefficient de y
     4 -> Coefficient de y**2"""
+    tempPosX = listConversionx(L)
+    tempPosY = listConversiony(L)
+    tempAngles = listConversionAngle(L)
     posX = np.array(tempPosX).reshape((-1, 1))
-    posY = np.array(tempPosX).reshape((-1, 1))
+    posY = np.array(tempPosY).reshape((-1, 1))
     _posX = PolynomialFeatures(degree=2, include_bias=False).fit_transform(posX)
     _posY = PolynomialFeatures(degree=2, include_bias=False).fit_transform(posY)
     pos = np.zeros(shape = (len(_posX), 4))
@@ -61,7 +60,7 @@ def polyRelation2 (tempPosX, tempPosY, tempAngles) :
     model = LinearRegression().fit(pos, angles)
     return model.coef_
 
-print(polyRelation2([1, 2, 3], [1, 2, 3], [3, 10, 21]))
+print(polyRelation2([[np.int64(2027), np.int64(1229), 0], [np.int64(160), np.int64(92), 1]]))
 
 
 
