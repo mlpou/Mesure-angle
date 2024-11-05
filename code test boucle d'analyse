@@ -3,7 +3,7 @@ import numpy as np	 # type: ignore
 import matplotlib.pyplot as plt # type: ignore
 import astropy # type: ignore
 import astropy.convolution as apconv # type: ignore
-path = "C:\\Users\\mathi\\Rose\\Mesure-angle\\dossier_test_image\\2024-01-10-02-20-20"
+path = "C:\\Users\\mathi\\Rose\\Mesure-angle\\dossier_test_image\\2024-01-10-02-20-20\\"
 
 L=[]
 def convolve(imag, window):
