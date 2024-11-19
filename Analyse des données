@@ -1,17 +1,59 @@
 import numpy as np # type: ignore
 from sklearn.linear_model import LinearRegression # type: ignore
 from sklearn.preprocessing import PolynomialFeatures # type: ignore
-#
+import os
+import matplotlib.pyplot as plt # type: ignore
+import astropy # type: ignore
+import astropy.convolution as apconv # type: ignore
+from pathlib import Path
 
-alt = 1
+
+path = "C:\\Users\\mathi\\Rose\\Mesure-angle\\RPI 1\\"
+
+L=[]
+def convolve(imag, window):
+	return apconv.convolve(imag, apconv.Box2DKernel(width=window))
+def coordonnées(images):
+  R=image[:,:,0]
+  G=image[:,:,1]
+  B=image[:,:,2]
+  image2=R/3+B/3+G/3
+  np.max(image2)
+  np.argmax(image)
+  image3=convolve(image2,3)
+  np.max(image3)
+  np.argmax(image3)
+  len(image3[:,1])
+  len(image3[1,:])
+  i=np.argmax(image3)
+  j=len(image2[:,1])
+  k=len(image3[1,:])
+  y=i//k
+  x=i%k
+  return [x,y]
+
+i = 0
+
+os.chdir(path)
+for entry in os.listdir(path):
+	imageTmp=entry
+	image=plt.imread(entry)
+	ListeTemp=coordonnées(image)+[i]
+	L.append(ListeTemp)
+	i += 1
+
+
+alt = 0
 precision = 1
-az = 2
+az = 1
 
 
 def numberToAngle (number,altIterations, altPrecision, azIterations) : 
     # On retourne l'angle selon le nombre dans l'itération
-    angle = ((number//azIterations)-altIterations/2)*altPrecision
+    angle = abs(((number//azIterations)-altIterations/2)*altPrecision)
     return angle
+
+print(numberToAngle(1,0,1,1))
 
 def listConversionx (L) : 
     posx = []
@@ -33,9 +75,12 @@ def listConversionAngle (L) :
         posa.append(numberToAngle(l[2], alt, precision, az))
     return posa
 
+def test (L) : 
+    posa = []
+    for l in L :
+        posa.append(l[2])
 
 
-# print(polyRelation([1, 2, 3], [1, 4, 9]))
 
 def polyRelation2 (L) :
     """"Cette procédure retourne les coefficient pour la relation polynomiale entre les positions de x et y et l'angle du pixel.
@@ -60,7 +105,16 @@ def polyRelation2 (L) :
     model = LinearRegression().fit(pos, angles)
     return model.coef_
 
-print(polyRelation2([[np.int64(2027), np.int64(1229), 0], [np.int64(160), np.int64(92), 1]]))
+file_path = Path("regression.txt")
+
+with open(file_path, 'w') as file : 
+    file.write(str(polyRelation2(L)))
+
+
+
+print(polyRelation2(L))
+#print(polyRelation2([[np.int64(167), np.int64(2668), 0], [np.int64(419), np.int64(938), 1], [np.int64(1415), np.int64(588), 2], [np.int64(167), np.int64(2666), 3], [np.int64(420), np.int64(906), 4], [np.int64(1414), np.int64(587), 5], [np.int64(167), np.int64(2667), 6], [np.int64(419), np.int64(937), 7], [np.int64(933), np.int64(2894), 8]]))
+
 
 
 
