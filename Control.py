@@ -12,7 +12,7 @@ slave2 = "172.20.4.162"
 
 
 
-def captures(pi, it) : 
+def captures(cam, it) : 
 
     username = "sand"
     password = "lumin007"
@@ -21,72 +21,84 @@ def captures(pi, it) :
 
     client1 = paramiko.client.SSHClient()
     client1.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    client1.connect(pi, username=username, password=password)
-    stdin, stdout, stderr = client1.exec_command("sudo captureA.py -t 10000 -g 16")
-    time.sleep(10)
+    client1.connect(master, username=username, password=password)
+    stdin, stdout, stderr = client1.exec_command(f"sudo capture{cam}.py -t 10000 -g 16")
+    #time.sleep(10)
     client1.close()
 
     client1 = paramiko.client.SSHClient()
     client1.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    client1.connect(pi, username=username, password=password)
-    stdin, stdout, stderr = client1.exec_command("sudo captureB.py -t 10000 -g 16")
-    time.sleep(10)
+    client1.connect(slave1, username=username, password=password)
+    stdin, stdout, stderr = client1.exec_command(f"sudo capture{cam}.py -t 10000 -g 16")
+    #time.sleep(10)
     client1.close()
 
     client1 = paramiko.client.SSHClient()
     client1.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    client1.connect(pi, username=username, password=password)
-    stdin, stdout, stderr = client1.exec_command("sudo captureC.py -t 10000 -g 16")
+    client1.connect(slave2, username=username, password=password)
+    stdin, stdout, stderr = client1.exec_command(f"sudo capture{cam}.py -t 10000 -g 16")
     time.sleep(10)
     client1.close()
 
-    client1 = paramiko.client.SSHClient()
-    client1.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    client1.connect(pi, username=username, password=password)
-    stdin, stdout, stderr = client1.exec_command("sudo captureD.py -t 10000 -g 16")
-    time.sleep(10)
-    client1.close()
+
 
     # On renomme les photos
     client1 = paramiko.client.SSHClient()
     client1.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    client1.connect(pi, username=username, password=password)
-    stdin, stdout, stderr = client1.exec_command(f"sudo mv capture_A.jpg Capture_{pi}A{it}.jpg")
+    client1.connect(master, username=username, password=password)
+    stdin, stdout, stderr = client1.exec_command(f"sudo mv capture_{cam}.jpg Capture_{master}{cam}{it}.jpg")
     client1.close()
 
     client1 = paramiko.client.SSHClient()
     client1.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    client1.connect(pi, username=username, password=password)
-    stdin, stdout, stderr = client1.exec_command(f"sudo mv capture_B.jpg Capture_{pi}B{it}.jpg")
+    client1.connect(slave1, username=username, password=password)
+    stdin, stdout, stderr = client1.exec_command(f"sudo mv capture_{cam}.jpg Capture_{slave1}{cam}{it}.jpg")
     client1.close()
 
     client1 = paramiko.client.SSHClient()
     client1.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    client1.connect(pi, username=username, password=password)
-    stdin, stdout, stderr = client1.exec_command(f"sudo mv capture_C.jpg Capture_{pi}C{it}.jpg")
-    client1.close()
-
-    client1 = paramiko.client.SSHClient()
-    client1.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    client1.connect(pi, username=username, password=password)
-    stdin, stdout, stderr = client1.exec_command(f"sudo mv capture_D.jpg Capture_{pi}D{it}.jpg")
+    client1.connect(slave2, username=username, password=password)
+    stdin, stdout, stderr = client1.exec_command(f"sudo mv capture_{cam}.jpg Capture_{slave2}{cam}{it}.jpg")
     client1.close()
 
     # On copie les photos sur l'ordinateur
-    subprocess.call(f"scp sand@{pi}:~/Capture_*A* C:\\Users\\mathi\\Rose\\Mesure-angle\\Data\\{pi}\\A" , shell=True)
-    subprocess.call(f"scp sand@{pi}:~/Capture_*B* C:\\Users\\mathi\\Rose\\Mesure-angle\\Data\\{pi}\\B" , shell=True)
-    subprocess.call(f"scp sand@{pi}:~/Capture_*C* C:\\Users\\mathi\\Rose\\Mesure-angle\\Data\\{pi}\\C" , shell=True)
-    subprocess.call(f"scp sand@{pi}:~/Capture_*D* C:\\Users\\mathi\\Rose\\Mesure-angle\\Data\\{pi}\\D" , shell=True)
+    subprocess.call(f"scp sand@{master}:~/Capture_{master}{cam}{it}.jpg C:\\Users\\mathi\\Rose\\Mesure-angle\\Data\\{master}\\{cam}" , shell=True)
+    subprocess.call(f"scp sand@{slave1}:~/Capture_{slave1}{cam}{it}.jpg C:\\Users\\mathi\\Rose\\Mesure-angle\\Data\\{slave1}\\{cam}" , shell=True)
+    subprocess.call(f"scp sand@{slave2}:~/Capture_{slave2}{cam}{it}.jpg C:\\Users\\mathi\\Rose\\Mesure-angle\\Data\\{slave2}\\{cam}" , shell=True)
 
     client1 = paramiko.client.SSHClient()
     client1.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    client1.connect(pi, username=username, password=password)
+    client1.connect(master, username=username, password=password)
     stdin, stdout, stderr = client1.exec_command(f"sudo rm capture_*")
     client1.close()
 
     client1 = paramiko.client.SSHClient()
     client1.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    client1.connect(pi, username=username, password=password)
+    client1.connect(slave1, username=username, password=password)
+    stdin, stdout, stderr = client1.exec_command(f"sudo rm capture_*")
+    client1.close()
+
+    client1 = paramiko.client.SSHClient()
+    client1.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    client1.connect(slave2, username=username, password=password)
+    stdin, stdout, stderr = client1.exec_command(f"sudo rm capture_*")
+    client1.close()
+
+    client1 = paramiko.client.SSHClient()
+    client1.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    client1.connect(master, username=username, password=password)
+    stdin, stdout, stderr = client1.exec_command(f"sudo rm Capture*")
+    client1.close()
+
+    client1 = paramiko.client.SSHClient()
+    client1.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    client1.connect(slave1, username=username, password=password)
+    stdin, stdout, stderr = client1.exec_command(f"sudo rm Capture*")
+    client1.close()
+
+    client1 = paramiko.client.SSHClient()
+    client1.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    client1.connect(slave2, username=username, password=password)
     stdin, stdout, stderr = client1.exec_command(f"sudo rm Capture*")
     client1.close()
 
@@ -102,9 +114,14 @@ def measures(altIterations, altPrecision,  azIterations, pauseTime) :
         for j in range(azIterations) :
             ipano.goto((i-altIterations/2)*altPrecision, j*(360/azIterations))
             time.sleep(pauseTime)
-            captures(master, i*azIterations+j)
-            captures(slave1, i*azIterations+j)
-            captures(slave2, i*azIterations+j)
+            captures("A", i*azIterations+j)
+            time.sleep(10)
+            captures("B", i*azIterations+j)
+            time.sleep(10)
+            captures("C", i*azIterations+j)
+            time.sleep(10)
+            captures("D", i*azIterations+j)
+            time.sleep(10)
 
 
 measures(1, 2, 3, 5)
