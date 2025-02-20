@@ -8,7 +8,7 @@ import astropy.convolution as apconv # type: ignore
 from pathlib import Path
 
 
-path = "C:\\Users\\mathi\\Rose\\Mesure-angle\\RPI 1\\"
+path = "C:\\Users\\mathi\\Rose\\Mesure-angle\\dossier_test_image"
 
 L=[]
 def convolve(imag, window):
@@ -107,12 +107,12 @@ def polyRelation2 (L) :
 
 file_path = Path("regression.txt")
 
-with open(file_path, 'w') as file : 
-    file.write(str(polyRelation2(L)))
+"""with open(file_path, 'w') as file : 
+    file.write(str(polyRelation2(L)))"""
 
 
 
-print(polyRelation2(L))
+print(coordonnées(path))
 #print(polyRelation2([[np.int64(167), np.int64(2668), 0], [np.int64(419), np.int64(938), 1], [np.int64(1415), np.int64(588), 2], [np.int64(167), np.int64(2666), 3], [np.int64(420), np.int64(906), 4], [np.int64(1414), np.int64(587), 5], [np.int64(167), np.int64(2667), 6], [np.int64(419), np.int64(937), 7], [np.int64(933), np.int64(2894), 8]]))
 
 

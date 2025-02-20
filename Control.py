@@ -1,5 +1,6 @@
 import Ipano # type: ignore
 import time
+import math
 
 import paramiko # type: ignore
 import time
@@ -105,14 +106,16 @@ def captures(cam, it) :
 
 ipano = Ipano.IPANO('COM5')
 ipano.set_zero_position()
+print("zero")
 
 
-def measures(altIterations, altPrecision,  azIterations, pauseTime) :
+def measures(altIterations, altPrecision,  azIterations, azAugmentation, pauseTime) :
     ipano.goto((0-altIterations)*2, 0*(360/azIterations))
     time.sleep(7)
     for i in range(altIterations) :
-        for j in range(azIterations) :
-            ipano.goto((i-altIterations/2)*altPrecision, j*(360/azIterations))
+        iterations = azIterations + int(math.sin(math.radians(i-altIterations/2*altPrecision))*azAugmentation)
+        for j in range(iterations) :
+            ipano.goto((i-altIterations/2)*altPrecision, j*(360/iterations))
             time.sleep(pauseTime)
             captures("A", i*azIterations+j)
             time.sleep(10)
@@ -123,5 +126,5 @@ def measures(altIterations, altPrecision,  azIterations, pauseTime) :
             captures("D", i*azIterations+j)
             time.sleep(10)
 
-
-measures(1, 2, 3, 5)
+#time.sleep(300)
+measures(3, 3, 3, 0, 5)
