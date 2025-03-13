@@ -1,3 +1,12 @@
+import numpy as np # type: ignore
+from sklearn.linear_model import LinearRegression # type: ignore
+from sklearn.preprocessing import PolynomialFeatures # type: ignore
+import os
+import matplotlib.pyplot as plt # type: ignore
+import astropy # type: ignore
+import astropy.convolution as apconv # type: ignore
+from pathlib import Path
+
 def convolve(imag, window):
 	return apconv.convolve(imag, apconv.Box2DKernel(width=window))
     
