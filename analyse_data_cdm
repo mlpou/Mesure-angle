@@ -109,3 +109,5 @@ file_path = Path("regression.txt")
 
 """with open(file_path, 'w') as file : 
     file.write(str(polyRelation2(L)))"""
+
+print(coordonnées(path))
