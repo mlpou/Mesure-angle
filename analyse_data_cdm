@@ -31,3 +31,81 @@ def centre_de_masse(images):
 	resultY=num_y/denom_y
 	resultx=num_x/denom_x
 	return [resultx, resultY]
+
+i = 0
+
+os.chdir(path)
+for entry in os.listdir(path):
+	imageTmp=entry
+	image=plt.imread(entry)
+	ListeTemp=coordonnées(image)+[i]
+	L.append(ListeTemp)
+	i += 1
+
+
+alt = 0
+precision = 1
+az = 1
+
+
+def numberToAngle (number,altIterations, altPrecision, azIterations) : 
+    # On retourne l'angle selon le nombre dans l'itération
+    angle = abs(((number//azIterations)-altIterations/2)*altPrecision)
+    return angle
+
+print(numberToAngle(1,0,1,1))
+
+def listConversionx (L) : 
+    posx = []
+    for l in L :
+        num = l[0]
+        posx.append(num.item())
+    return posx
+
+def listConversiony (L) : 
+    posy = []
+    for l in L :
+        num = l[1]
+        posy.append(num.item())
+    return posy
+
+def listConversionAngle (L) : 
+    posa = []
+    for l in L :
+        posa.append(numberToAngle(l[2], alt, precision, az))
+    return posa
+
+def test (L) : 
+    posa = []
+    for l in L :
+        posa.append(l[2])
+
+
+
+def polyRelation2 (L) :
+    """"Cette procédure retourne les coefficient pour la relation polynomiale entre les positions de x et y et l'angle du pixel.
+    Indices et coefficients correspondants :
+    0 -> Ordonnée à l'origine
+    1 -> Coefficient de x
+    2 -> Coefficient de x**2
+    3 -> Coefficient de y
+    4 -> Coefficient de y**2"""
+    tempPosX = listConversionx(L)
+    tempPosY = listConversiony(L)
+    tempAngles = listConversionAngle(L)
+    posX = np.array(tempPosX).reshape((-1, 1))
+    posY = np.array(tempPosY).reshape((-1, 1))
+    _posX = PolynomialFeatures(degree=2, include_bias=False).fit_transform(posX)
+    _posY = PolynomialFeatures(degree=2, include_bias=False).fit_transform(posY)
+    pos = np.zeros(shape = (len(_posX), 4))
+    for i in range(len(_posX)) :
+        templist = np.append(_posX[i],  _posY[i])
+        pos[i] = templist
+    angles = np.array(tempAngles)
+    model = LinearRegression().fit(pos, angles)
+    return model.coef_
+
+file_path = Path("regression.txt")
+
+"""with open(file_path, 'w') as file : 
+    file.write(str(polyRelation2(L)))"""
