@@ -113,7 +113,7 @@ file_path = Path("regression.txt")
 
 
 print(coordonnées(path))
-#print(polyRelation2([[np.int64(167), np.int64(2668), 0], [np.int64(419), np.int64(938), 1], [np.int64(1415), np.int64(588), 2], [np.int64(167), np.int64(2666), 3], [np.int64(420), np.int64(906), 4], [np.int64(1414), np.int64(587), 5], [np.int64(167), np.int64(2667), 6], [np.int64(419), np.int64(937), 7], [np.int64(933), np.int64(2894), 8]]))
+print(polyRelation2([[np.int64(1), np.int64(0), 0], [np.int64(2), np.int64(0), 1], [np.int64(3), np.int64(0), 2], [np.int64(4), np.int64(0), 3], [np.int64(5), np.int64(0), 4], [np.int64(6), np.int64(0), 5], [np.int64(7), np.int64(0), 6], [np.int64(8), np.int64(0), 7], [np.int64(9), np.int64(0), 8]]))
 
 
 
