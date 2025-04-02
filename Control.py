@@ -112,7 +112,7 @@ def measures(altIterations, altPrecision,  azIterations, azAugmentation, pauseTi
     ipano.goto((0-altIterations)*2, 0*(360/azIterations))
     time.sleep(7)
     for i in range(altIterations) :
-        iterations = azIterations + int(math.sin(math.radians(i-altIterations/2*altPrecision))*azAugmentation)
+        iterations = azIterations #+ int(math.sin(math.radians(i-altIterations/2*altPrecision))*azAugmentation)
         for j in range(iterations) :
             ipano.goto((i-altIterations/2)*altPrecision, j*(360/iterations))
             time.sleep(pauseTime)

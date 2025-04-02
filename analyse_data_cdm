@@ -7,7 +7,7 @@ import astropy # type: ignore
 import astropy.convolution as apconv # type: ignore
 from pathlib import Path
 
-path = "/Mesure-angle/dossier_test_image"
+path = "C:\\Users\\mathi\\Rose\\Mesure-angle\\dossier_test_image"
 
 L=[]
 def convolve(imag, window):
@@ -43,17 +43,20 @@ for entry in os.listdir(path):
 	i += 1
 
 
-alt = 0
+alt = 1
 precision = 1
-az = 1
+az = 2
 
 
-def numberToAngle (number,altIterations, altPrecision, azIterations) : 
+def numberToAlt (number,altIterations, altPrecision, azIteration) : 
     # On retourne l'angle selon le nombre dans l'itération
-    angle = abs(((number//azIterations)-altIterations/2)*altPrecision)
+    angle = (((number//azIteration)-altIterations/2)*altPrecision)
     return angle
 
-print(numberToAngle(1,0,1,1))
+def numberToAz (number, azIteration) :
+    angle = (number%azIteration)*(360/azIteration)
+    return angle
+
 
 def listConversionx (L) : 
     posx = []
@@ -69,11 +72,17 @@ def listConversiony (L) :
         posy.append(num.item())
     return posy
 
-def listConversionAngle (L) : 
-    posa = []
-    for l in L :
-        posa.append(numberToAngle(l[2], alt, precision, az))
-    return posa
+def listConversionAlt(L) :
+     posa = []
+     for l in L : 
+          posa.append(numberToAlt(l[2], alt, precision, az))
+     return posa
+
+def listConversionAz(L) :
+     posa = []
+     for l in L : 
+          posa.append(numberToAz(l[2],  az))
+     return posa
 
 def test (L) : 
     posa = []
@@ -83,7 +92,7 @@ def test (L) :
 
 
 def polyRelation2 (L) :
-    """"Cette procédure retourne les coefficient pour la relation polynomiale entre les positions de x et y et l'angle du pixel.
+    """"Cette procédure retourne les coefficient pour les relations polynomiales entre les positions de x et y et les angles d'altitude et de latitude du pixel.
     Indices et coefficients correspondants :
     0 -> Ordonnée à l'origine
     1 -> Coefficient de x
@@ -92,7 +101,8 @@ def polyRelation2 (L) :
     4 -> Coefficient de y**2"""
     tempPosX = listConversionx(L)
     tempPosY = listConversiony(L)
-    tempAngles = listConversionAngle(L)
+    tempAlt = listConversionAlt(L)
+    tempAz = listConversionAz(L)
     posX = np.array(tempPosX).reshape((-1, 1))
     posY = np.array(tempPosY).reshape((-1, 1))
     _posX = PolynomialFeatures(degree=2, include_bias=False).fit_transform(posX)
@@ -101,14 +111,17 @@ def polyRelation2 (L) :
     for i in range(len(_posX)) :
         templist = np.append(_posX[i],  _posY[i])
         pos[i] = templist
-    angles = np.array(tempAngles)
-    model = LinearRegression().fit(pos, angles)
-    return model.coef_
+    Alt = np.array(tempAlt)
+    Az = np.array(tempAz)
+    modelAlt = LinearRegression().fit(pos, Alt)
+    modelAz = LinearRegression().fit(pos, Az)
+    return [modelAlt.coef_, modelAz.coef_]
 
 file_path = Path("regression.txt")
 
 """with open(file_path, 'w') as file : 
     file.write(str(polyRelation2(L)))"""
 
-print(centre_de_masse(path))
-print(polyRelation2([[np.int64(1), np.int64(0), 0], [np.int64(2), np.int64(0), 1], [np.int64(3), np.int64(0), 2], [np.int64(4), np.int64(0), 3], [np.int64(5), np.int64(0), 4], [np.int64(6), np.int64(0), 5], [np.int64(7), np.int64(0), 6], [np.int64(8), np.int64(0), 7], [np.int64(9), np.int64(0), 8]]))
+#print(centre_de_masse(path))
+liste = [[np.int64(-0.5), np.int64(0), 0], [np.int64(179.5), np.int64(0), 1], [np.int64(0.5), np.int64(0), 2], [np.int64(180.5), np.int64(0), 3], [np.int64(1.5), np.int64(0), 4], [np.int64(181.5), np.int64(0), 5], [np.int64(2.5), np.int64(0), 6], [np.int64(182.5), np.int64(0), 7], [np.int64(3.5), np.int64(0), 8]]
+print(polyRelation2(liste))
