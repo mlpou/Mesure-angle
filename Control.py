@@ -62,9 +62,9 @@ def captures(cam, it) :
     client1.close()
 
     # On copie les photos sur l'ordinateur
-    subprocess.call(f"scp sand@{master}:~/Capture_{master}{cam}{it}.jpg C:\\Users\\mathi\\Rose\\Mesure-angle\\Data\\{master}\\{cam}" , shell=True)
-    subprocess.call(f"scp sand@{slave1}:~/Capture_{slave1}{cam}{it}.jpg C:\\Users\\mathi\\Rose\\Mesure-angle\\Data\\{slave1}\\{cam}" , shell=True)
-    subprocess.call(f"scp sand@{slave2}:~/Capture_{slave2}{cam}{it}.jpg C:\\Users\\mathi\\Rose\\Mesure-angle\\Data\\{slave2}\\{cam}" , shell=True)
+    subprocess.call(f"scp sand@{master}:~/Capture_{master}{cam}{it}.jpg sand@rasberrypi:~/Mesure-Angle/data/{master}{cam}" , shell=True)
+    subprocess.call(f"scp sand@{slave1}:~/Capture_{slave1}{cam}{it}.jpg sand@rasberrypi:~/Mesure-Angle/data/{slave1}\\{cam}" , shell=True)
+    subprocess.call(f"scp sand@{slave2}:~/Capture_{slave2}{cam}{it}.jpg sand@rasberrypi:~/Mesure-Angle/data/{slave2}\\{cam}" , shell=True)
 
     client1 = paramiko.client.SSHClient()
     client1.set_missing_host_key_policy(paramiko.AutoAddPolicy())
