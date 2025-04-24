@@ -7,7 +7,7 @@ import time
 import subprocess
 import sys
 
-ipano = Ipano.IPANO('COM5')
+ipano = Ipano.IPANO('port')
 ipano.set_zero_position()
 print("zero")
 ipano.goto(0,0)
@@ -17,8 +17,8 @@ master = "172.20.4.160"
 slave1 = "172.20.4.161"
 slave2 = "172.20.4.162"
 
-username = "sand"
-password = "lumin007"
+username = "username"
+password = "password"
 
     # Prise des photos
 
@@ -38,7 +38,7 @@ client1.close()
 
 time.sleep(5)
 
-subprocess.call(f"scp sand@{slave2}:~/Capture_{master}A.jpg C:\\Users\\mathi\\Rose\\Mesure-angle\\dossier_test_image" , shell=True)
+subprocess.call(f"scp sand@{slave2}:~/Capture_{master}A.jpg path" , shell=True)
 
 client1 = paramiko.client.SSHClient()
 client1.set_missing_host_key_policy(paramiko.AutoAddPolicy())

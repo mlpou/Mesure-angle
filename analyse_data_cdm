@@ -83,13 +83,14 @@ def test (L) :
 
 
 def polyRelation2 (L) :
-    """"Cette procédure retourne les coefficient pour les relations polynomiales entre les positions de x et y et les angles d'altitude et de latitude du pixel.
-    Indices et coefficients correspondants :
-    0 -> Ordonnée à l'origine
-    1 -> Coefficient de x
-    2 -> Coefficient de x**2
-    3 -> Coefficient de y
-    4 -> Coefficient de y**2"""
+    """"This fonction returns coefficients from the polynomial regression between the x and y pixel position of the light and the altitude and latitude angles.
+    The indexes corespond to the following : 
+    0 -> Constant
+    1 -> x coefficient
+    2 -> x**2 coefficient
+    3 -> y coefficient
+    4 -> y**2 coefficient
+    The first array is the altitude's regression and the second is the azimuth's regression."""
     tempPosX = listConversionx(L)
     tempPosY = listConversiony(L)
     tempAlt = listConversionAlt(L)
@@ -110,7 +111,7 @@ def polyRelation2 (L) :
 
 
 
-def analyse(path) :  
+def analysis(path) :  
      os.chdir(path)
      L = []
      for entry in os.listdir(path) : 
@@ -130,4 +131,4 @@ def analyse(path) :
         file.write(str(relation))
      print(relation)
 
-analyse("C:\\Users\\mathi\\Rose\\Mesure-angle\\dossier_test_image")
+analysis("path")

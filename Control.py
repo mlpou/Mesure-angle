@@ -14,8 +14,8 @@ slave2 = "172.20.4.162"
 
 def captures(cam, it) : 
 
-    username = "sand"
-    password = "lumin007"
+    username = "username"
+    password = "password"
 
     # Prise des photos
 
@@ -103,16 +103,16 @@ def captures(cam, it) :
     client1.close()
 
 
-ipano = Ipano.IPANO('/dev/ttyUSB0')
+ipano = Ipano.IPANO('port') # The port has to be modified here
 ipano.set_zero_position()
 print("zero")
 
 
-def measures(altIterations, altPrecision,  azIterations, azAugmentation, pauseTime) :
+def measures(altIterations, altPrecision,  azIterations, pauseTime) :
     ipano.goto((0-altIterations)*2, 0*(360/azIterations))
-    time.sleep(7)
+    time.sleep(pauseTime)
     for i in range(altIterations) :
-        iterations = azIterations #+ int(math.sin(math.radians(i-altIterations/2*altPrecision))*azAugmentation)
+        iterations = azIterations
         for j in range(iterations) :
             ipano.goto((i-altIterations/2)*altPrecision, j*(360/iterations))
             time.sleep(pauseTime)
@@ -125,5 +125,5 @@ def measures(altIterations, altPrecision,  azIterations, azAugmentation, pauseTi
             captures("D", i*azIterations+j)
             time.sleep(10)
 
-#time.sleep(300)
-measures(3, 3, 3, 0, 5)
+time.sleep(300)
+measures(3, 3, 3, 7)

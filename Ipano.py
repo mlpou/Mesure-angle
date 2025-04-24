@@ -8,9 +8,7 @@ import serial.tools.list_ports; # type: ignore
 print([comport.device for comport in serial.tools.list_ports.comports()]) # Prints the port to use
 
 
-""" This code provides functions for communication with Ipano allview camera mount. They the commands from the iPano RS232 Command Set into python functions.
-The last function (measures) uses the previous functions to control the camera mount movements in the goal of mesuring different pixels values of a LED
-shot from different angles. """
+""" This code provides functions for communication with Ipano allview camera mount. They the commands from the iPano RS232 Command Set into python functions. """
 class DIRECTION(Enum):
     LEFT = "l"
     RIGHT = "r"

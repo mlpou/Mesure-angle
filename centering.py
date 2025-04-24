@@ -5,7 +5,7 @@ import astropy # type: ignore
 import astropy.convolution as apconv # type: ignore
 from pathlib import Path
 
-path = "C:\\Users\\mathi\\Rose\\Mesure-angle\\dossier_test_image"
+path = "path"
 
 L=[]
 def convolve(imag, window):
