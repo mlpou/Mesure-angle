@@ -7,7 +7,7 @@ FleYe calibration method is aimed to generate a general equation representing th
 
 # Material
 - iPano RS232" camera mount (its command set is part of the repository (iPano RS232 Command.pdf))
-- 3D printed adaptator for the FleYe to fit on the mount
+- 3D printed adaptator for the FleYe to fit on the mount ("FleYe-Ipano-adaptator.skp" and "FleYe-Ipano-adaptator.stl")
 - Tripod (we used a bonifoto)
 - Raspberry pi
 - Red LED
