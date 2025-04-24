@@ -30,7 +30,8 @@ def centre_de_masse(images):
 	denom_x=np.sum(arr)
 	resultY=num_y/denom_y
 	resultx=num_x/denom_x
-	return [resultx, resultY]
+	max = np.max(image2)
+	return [resultx, resultY, max]
 
 
 os.chdir(path)
@@ -45,7 +46,8 @@ for entry in os.listdir(path) :
                mot = mot + entry[l+21]
      i = int(mot)
      ListeTemp = centre_de_masse(image) + [i]
-     L.append(ListeTemp)
+     if ListeTemp[2] > 50 :
+          L.append(ListeTemp)
 
 alt = 1
 precision = 1
@@ -126,7 +128,7 @@ file_path = Path("regression.txt")
 """with open(file_path, 'w') as file : 
     file.write(str(polyRelation2(L)))"""
 
+print(L)
 
-#print(centre_de_masse(path))
 liste = [[np.int64(-0.5), np.int64(0), 0], [np.int64(179.5), np.int64(0), 1], [np.int64(0.5), np.int64(0), 2], [np.int64(180.5), np.int64(0), 3], [np.int64(1.5), np.int64(0), 4], [np.int64(181.5), np.int64(0), 5], [np.int64(2.5), np.int64(0), 6], [np.int64(182.5), np.int64(0), 7], [np.int64(3.5), np.int64(0), 8]]
 print(polyRelation2(L))

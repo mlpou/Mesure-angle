@@ -8,7 +8,7 @@ import astropy.convolution as apconv # type: ignore
 from pathlib import Path
 
 
-path = "/home/Mesure-angle/dossier_test_image"
+path = "C:\\Users\\mathi\\Rose\\Mesure-angle\\dossier_test_image"
 
 L=[]
 def convolve(imag, window):
@@ -19,6 +19,7 @@ def coordonnées(images):
   B=image[:,:,2]
   image2=R/3+B/3+G/3
   np.max(image2)
+  print(np.max(image2))
   np.argmax(image)
   image3=convolve(image2,3)
   np.max(image3)
