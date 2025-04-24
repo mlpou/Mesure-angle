@@ -18,7 +18,7 @@ The first step of the calibration is a photo capture. The FleYe has to capture a
 
 data -> pi's ID -> camera letter
 
-Once the pictures are taken, they have to be analysed. The programs "data_analysis" and "data_analysis_mc" create a second degree polynomial regression. "data_analysis" uses the brightest pixel as a reference value and "data_analysis_mc" uses the mass center of the bright pixels as a reference value. We recomand using the mass center, as it is more acurate. The variables "alt", "precision" and "az" correspond to "alIteration", "altPrecision" and "azIteration" from "Control.py". It is important that they corespond. The "analysis" fonction sould be called with each camera's path so that they all get a regression. A text file we be created in the same path. The "polyRelation2" fonction returns coefficients from the polynomial regression between the x and y pixel position of the light and the altitude and latitude angles.
+Once the pictures are taken, they have to be analysed. The program  "data_analysis_mc" creates a second degree polynomial regression. The program uses the mass center of the bright pixels as a reference value. We recomand using the mass center, as it is more acurate. The variables "alt", "precision" and "az" correspond to "alIteration", "altPrecision" and "azIteration" from "Control.py". It is important that they corespond. The "analysis" fonction sould be called with each camera's path so that they all get a regression. A text file we be created in the same path. The "polyRelation2" fonction returns coefficients from the polynomial regression between the x and y pixel position of the light and the altitude and latitude angles.
 The indexes corespond to the following : 
 
     0 -> Constant
