@@ -7,16 +7,20 @@ import astropy # type: ignore
 import astropy.convolution as apconv # type: ignore
 from pathlib import Path
 
-path = "C:\\Users\\mathi\\Rose\\Mesure-angle\\dossier_test_image"
 
-L=[]
+
+alt = 90
+precision = 1
+az = 12
+
+
 def convolve(imag, window):
 	return apconv.convolve(imag, apconv.Box2DKernel(width=window))
     
 def centre_de_masse(images):
-	R=image[:,:,0]
-	G=image[:,:,1]
-	B=image[:,:,2]
+	R=images[:,:,0]
+	G=images[:,:,1]
+	B=images[:,:,2]
 	image2=R/3+B/3+G/3
 	image2[image2 < 40] = 0
 	arr=image2
@@ -33,25 +37,6 @@ def centre_de_masse(images):
 	max = np.max(image2)
 	return [resultx, resultY, max]
 
-
-os.chdir(path)
-
-    
-for entry in os.listdir(path) : 
-     imageTmp=entry
-     image=plt.imread(entry)
-     mot = ""
-     for l in range(4) :
-          if ord(entry[l+21]) >= 48 and ord(entry[l+21]) <=57 :
-               mot = mot + entry[l+21]
-     i = int(mot)
-     ListeTemp = centre_de_masse(image) + [i]
-     if ListeTemp[2] > 50 :
-          L.append(ListeTemp)
-
-alt = 1
-precision = 1
-az = 2
 
 
 def numberToAlt (number,altIterations, altPrecision, azIteration) : 
@@ -123,12 +108,26 @@ def polyRelation2 (L) :
     modelAz = LinearRegression().fit(pos, Az)
     return [modelAlt.coef_, modelAz.coef_]
 
-file_path = Path("regression.txt")
 
-"""with open(file_path, 'w') as file : 
-    file.write(str(polyRelation2(L)))"""
 
-print(L)
+def analyse(path) :  
+     os.chdir(path)
+     L = []
+     for entry in os.listdir(path) : 
+         imageTmp=entry
+         image=plt.imread(entry)
+         mot = ""
+         for l in range(4) :
+              if ord(entry[l+21]) >= 48 and ord(entry[l+21]) <=57 :
+                   mot = mot + entry[l+21]
+         i = int(mot)
+         ListeTemp = centre_de_masse(image) + [i]
+         if ListeTemp[2] > 50 :
+            L.append(ListeTemp)
+            file_path = Path("regression.txt")
+     relation = polyRelation2(L)
+     with open(file_path, 'w') as file : 
+        file.write(str(relation))
+     print(relation)
 
-liste = [[np.int64(-0.5), np.int64(0), 0], [np.int64(179.5), np.int64(0), 1], [np.int64(0.5), np.int64(0), 2], [np.int64(180.5), np.int64(0), 3], [np.int64(1.5), np.int64(0), 4], [np.int64(181.5), np.int64(0), 5], [np.int64(2.5), np.int64(0), 6], [np.int64(182.5), np.int64(0), 7], [np.int64(3.5), np.int64(0), 8]]
-print(polyRelation2(L))
+analyse("C:\\Users\\mathi\\Rose\\Mesure-angle\\dossier_test_image")
