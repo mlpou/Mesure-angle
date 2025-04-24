@@ -2,9 +2,8 @@
 # Context
 FleYe calibration method is aimed to generate a general equation representing the angle formed by a light source and a camera at a variable altitude. The data obtained by applying this data analysis is useful to the model ILLUMINA developed by the professor Martin Aubé. It is used to grasp a better understanding of the impact of light pollution in the environnement. To obtain data, the FleYe system is attached to a stratospheric balloon. FleYe is a 12 camera positioned to create a half-sphère shape, allowing it to cover and take pictures of the ground for 360 degrees. These flights are done during the night to better detect the light sources. During these flights, FleYe takes photos of the region beneath itself. These photos are then analysed with FleYe calibration method. 
 
-For more information on the ILLUMINA model, refer to http://obsand.org/wiki/index.php?n=Prof.IllumEn
-
-For more information on the FLeYe camera system, refer to http://obsand.org/wiki/index.php?n=Prof.HABLANv3-Raspbian
+- For more information on the ILLUMINA model, refer to http://obsand.org/wiki/index.php?n=Prof.IllumEn
+- For more information on the FLeYe camera system, refer to http://obsand.org/wiki/index.php?n=Prof.HABLANv3-Raspbian
 
 # Material
 - iPano RS232" camera mount (its command set is part of the repository (iPano RS232 Command.pdf))
