@@ -15,9 +15,15 @@ data -> pi's ID -> camera letter
 
 Once the pictures are taken, they have to be analysed. The programs "data_analysis" and "data_analysis_mc" create a second degree polynomial regression. "data_analysis" uses the brightest pixel as a reference value and "data_analysis_mc" uses the mass center of the bright pixels as a reference value. We recomand using the mass center, as it is more acurate. The variables "alt", "precision" and "az" correspond to "alIteration", "altPrecision" and "azIteration" from "Control.py". It is important that they corespond. The "analysis" fonction sould be called with each camera's path so that they all get a regression. A text file we be created in the same path. The "polyRelation2" fonction returns coefficients from the polynomial regression between the x and y pixel position of the light and the altitude and latitude angles.
 The indexes corespond to the following : 
+
     0 -> Constant
+    
     1 -> x coefficient
+    
     2 -> x^2 coefficient
+    
     3 -> y coefficient
+    
     4 -> y^2 coefficient
+    
 The first array is the altitude's regression and the second is the azimuth's regression. 
