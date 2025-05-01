@@ -127,4 +127,4 @@ def analysis(path) :
         file.write(str(relation))
      print(relation)
 
-analysis("C:\\Users\\mathi\\Rose\\Mesure-angle\\dossier_test_image")
+analysis("path")
