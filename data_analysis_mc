@@ -66,19 +66,15 @@ def listConversiony (L) :
 def listConversionAlt(L) :
      posa = []
      for l in L : 
-          posa.append(numberToAlt(l[2], alt, precision, az))
+          posa.append(numberToAlt(l[3], alt, precision, az))
      return posa
 
 def listConversionAz(L) :
      posa = []
      for l in L : 
-          posa.append(numberToAz(l[2],  az))
+          posa.append(numberToAz(l[3],  az))
      return posa
 
-def test (L) : 
-    posa = []
-    for l in L :
-        posa.append(l[2])
 
 
 
@@ -107,7 +103,7 @@ def polyRelation2 (L) :
     Az = np.array(tempAz)
     modelAlt = LinearRegression().fit(pos, Alt)
     modelAz = LinearRegression().fit(pos, Az)
-    return [modelAlt.coef_, modelAz.coef_]
+    return [modelAlt.intercept_, modelAlt.coef_, modelAz.intercept_, modelAz.coef_]
 
 
 
@@ -131,4 +127,4 @@ def analysis(path) :
         file.write(str(relation))
      print(relation)
 
-analysis("path")
+analysis("C:\\Users\\mathi\\Rose\\Mesure-angle\\dossier_test_image")
