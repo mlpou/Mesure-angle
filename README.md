@@ -25,11 +25,11 @@ The indexes corespond to the following :
     
 1. x coefficient
     
-2. x^2 coefficient
+2. x^2^ coefficient
     
 3. y coefficient
     
-4. y^2 coefficient
+4. y^2^ coefficient
     
 The first array is the altitude's regression and the second is the azimuth's regression. 
 The arrays will be stored in a text file name "regression" in each camera's directory. Make sure to delete them before doing another regression.
