@@ -12,6 +12,7 @@ from pathlib import Path
 alt = 90
 precision = 1
 az = 12
+degre = 4
 
 
 def convolve(imag, window):
@@ -93,9 +94,9 @@ def polyRelation2 (L) :
     tempAz = listConversionAz(L)
     posX = np.array(tempPosX).reshape((-1, 1))
     posY = np.array(tempPosY).reshape((-1, 1))
-    _posX = PolynomialFeatures(degree=2, include_bias=False).fit_transform(posX)
-    _posY = PolynomialFeatures(degree=2, include_bias=False).fit_transform(posY)
-    pos = np.zeros(shape = (len(_posX), 4))
+    _posX = PolynomialFeatures(degree=degre, include_bias=False).fit_transform(posX)
+    _posY = PolynomialFeatures(degree=degre, include_bias=False).fit_transform(posY)
+    pos = np.zeros(shape = (len(_posX), 2*degre))
     for i in range(len(_posX)) :
         templist = np.append(_posX[i],  _posY[i])
         pos[i] = templist
